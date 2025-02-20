@@ -16,7 +16,7 @@ const jsResult = babel.transform(jsCode, {
 fs.writeFileSync("./src/es6/result.js", jsResult.code);
 
 // 用 babel 转换 jsx 代码
-const reactCode = fs.readFileSync("./src/jsx/code.js", "utf8");
+const reactCode = fs.readFileSync("./src/jsx/code.jsx", "utf8");
 const reactResult = babel.transform(reactCode, {
     presets: [
         //usage 会根据配置的浏览器兼容，以及你代码中用到的 API 来进行 polyfill，实现了按需添加
