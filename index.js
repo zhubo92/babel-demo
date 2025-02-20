@@ -3,6 +3,7 @@ import babel from "@babel/core";
 import presetEnv from '@babel/preset-env';
 import presetReact from '@babel/preset-react';
 import {transformFunction} from "./src/plugins/index.js";
+import swc from "@swc/core";
 
 // 用 babel 转换 es6 代码
 const jsCode = fs.readFileSync("./src/es6/code.js", "utf8");
@@ -36,3 +37,13 @@ const pluginResult = babel.transform(jsCode, {
 });
 fs.writeFileSync("./src/plugins/result.js", pluginResult.code);
 
+// swc 编译 es6代码
+const swcResult = swc.transformFileSync("./src/es6/code.js", {
+    "jsc": {
+        "target": "es5",
+        "parser": {
+            "syntax": "ecmascript",
+        },
+    }
+});
+fs.writeFileSync("./src/swc/result.js", swcResult.code);
