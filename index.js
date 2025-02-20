@@ -2,6 +2,7 @@ import fs from 'fs';
 import babel from "@babel/core";
 import presetEnv from '@babel/preset-env';
 import presetReact from '@babel/preset-react';
+import {transformFunction} from "./src/plugins/index.js";
 
 // 用 babel 转换 es6 代码
 const jsCode = fs.readFileSync("./src/es6/code.js", "utf8");
@@ -28,4 +29,10 @@ const reactResult = babel.transform(reactCode, {
 });
 
 fs.writeFileSync("./src/jsx/result.js", reactResult.code);
+
+// 开发 babel 插件 转换箭头函数
+const pluginResult = babel.transform(jsCode, {
+    plugins: [transformFunction]
+});
+fs.writeFileSync("./src/plugins/result.js", pluginResult.code);
 
